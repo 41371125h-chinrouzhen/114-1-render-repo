@@ -1,0 +1,75 @@
+/* ChatWithMe.css */
+.chat-container {
+    max-width: 100%;
+    margin: 0 auto;
+    border: 1px solid #333; 
+    background-color: #212121; 
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+.chat-box {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message.user {
+    align-items: flex-end;
+}
+
+.message.model {
+    align-items: flex-start;
+}
+
+.message p {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 80%;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.message.user p {
+    background-color: #007bff; 
+}
+
+.chat-input-form {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #333;
+}
+
+.chat-input-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 20px;
+    margin-right: 10px;
+    background-color: #333;
+    color: #fff;
+}
+
+.chat-input-form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff; 
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.chat-input-form button:disabled {
+    background-color: #555;
+}
