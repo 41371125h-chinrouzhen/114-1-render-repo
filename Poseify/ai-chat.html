@@ -1,88 +1,41 @@
-/* js/ai-chat.js */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Gemini AI Chat | Chin Rou Zhen</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-lg-5 fixed-top">
+        <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+            <h2 class="mb-0 text-primary text-uppercase">Rou Zhen</h2>
+        </a>
+        <div class="ms-auto">
+            <a href="index.html" class="btn btn-outline-primary">Back to Home</a>
+        </div>
+    </nav>
 
-const BACKEND_URL = "https://one14-1-portfolio.onrender.com/api/chat"; 
-
-const chatContainer = document.getElementById('virtual-me-root');
-
-function initChat() {
-    chatContainer.innerHTML = `
-        <div class="card border-0" style="height: 500px; display: flex; flex-direction: column;">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <span><i class="fa-solid fa-robot me-2"></i>Virtual Rou Zhen</span>
-                <span class="badge bg-light text-dark">Online</span>
+    <div class="container-fluid bg-secondary py-5" style="min-height: 100vh; padding-top: 120px !important;">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+                <h5 class="text-primary text-uppercase">Project Showcase</h5>
+                <h1 class="display-5 text-white mb-4">Gemini AI Chatbot</h1>
+                <p class="text-white-50">This chatbot is powered by Google Gemini API via a secure backend. Feel free to ask it anything about my portfolio!</p>
             </div>
-            <div id="chat-history" class="card-body bg-light" style="flex: 1; overflow-y: auto; padding: 20px;">
-                <div class="d-flex flex-column align-items-start mb-3">
-                    <div class="bg-white p-3 rounded shadow-sm text-dark" style="max-width: 80%;">
-                        哈囉！我是柔蓁的 AI 分身。我現在透過雲端伺服器運作，更安全也更聰明喔！你可以問我任何關於我的問題。
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="bg-white rounded p-4 shadow">
+                        <div id="virtual-me-root"></div>
                     </div>
                 </div>
             </div>
-            <div class="card-footer bg-white">
-                <div class="input-group">
-                    <input type="text" id="user-input" class="form-control border-0" placeholder="Type a message..." onkeypress="handleEnter(event)">
-                    <button class="btn btn-primary" onclick="sendMessage()"><i class="fa fa-paper-plane"></i></button>
-                </div>
-            </div>
         </div>
-    `;
-}
+    </div>
 
-function handleEnter(e) {
-    if (e.key === 'Enter') sendMessage();
-}
-
-async function sendMessage() {
-    const inputField = document.getElementById('user-input');
-    const userText = inputField.value.trim();
-
-    if (!userText) return;
-
-    appendMessage('end', 'bg-primary text-white', userText);
-    inputField.value = '';
-
-    const loadingId = 'loading-' + Date.now();
-    appendMessage('start', 'bg-white text-dark', '<i class="fa-solid fa-ellipsis fa-fade"></i> Thinking...', loadingId);
-
-    try {
-        const response = await fetch(BACKEND_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: userText })
-        });
-
-        const data = await response.json();
-        
-        document.getElementById(loadingId).remove();
-        
-        if (data.reply) {
-            appendMessage('start', 'bg-white text-dark', data.reply);
-        } else {
-            appendMessage('start', 'bg-danger text-white', '伺服器沒有回應，請稍後再試。');
-        }
-
-    } catch (error) {
-        document.getElementById(loadingId).remove();
-        appendMessage('start', 'bg-warning text-dark', '伺服器喚醒中或連線錯誤，請稍等約 30 秒後再試一次！');
-        console.error(error);
-    }
-}
-
-function appendMessage(align, cssClass, text, id = null) {
-    const history = document.getElementById('chat-history');
-    const msgDiv = document.createElement('div');
-    msgDiv.className = `d-flex flex-column align-items-${align} mb-3`;
-    if (id) msgDiv.id = id;
-    
-    const formattedText = text.replace(/\n/g, '<br>');
-
-    msgDiv.innerHTML = `
-        <div class="${cssClass} p-3 rounded shadow-sm" style="max-width: 80%;">
-            ${formattedText}
-        </div>
-    `;
-    history.appendChild(msgDiv);
-    history.scrollTop = history.scrollHeight;
-}
-
-document.addEventListener('DOMContentLoaded', initChat);
+    <script src="js/ai-chat.js"></script>
+</body>
+</html>
