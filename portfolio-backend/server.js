@@ -40,9 +40,8 @@ app.post('/api/chat', async (req, res) => {
     }
 
     try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-        
-        // 🚀 關鍵修改：把你的 knowledgeBase 注入到 System Prompt 中
+	const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${apiKey}`;
+
         const systemPrompt = `
             你現在扮演「陳柔蓁 (Rou Zhen)」。
             
