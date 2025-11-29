@@ -1,9 +1,6 @@
 /* js/ai-chat.js */
 
-// 🔥 請將這裡換成你 Render 部署後得到的網址 + /api/chat
-// 例如: "https://my-backend.onrender.com/api/chat"
-// 注意：不要只貼網址，後面要加 "/api/chat"
-const BACKEND_URL = "https://你的Render網址.onrender.com/api/chat"; 
+const BACKEND_URL = "https://one14-1-portfolio.onrender.com/api/chat"; 
 
 const chatContainer = document.getElementById('virtual-me-root');
 
@@ -48,7 +45,6 @@ async function sendMessage() {
     appendMessage('start', 'bg-white text-dark', '<i class="fa-solid fa-ellipsis fa-fade"></i> Thinking...', loadingId);
 
     try {
-        // 🚀 修改點：改為發送請求給 Render 後端
         const response = await fetch(BACKEND_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -67,8 +63,7 @@ async function sendMessage() {
 
     } catch (error) {
         document.getElementById(loadingId).remove();
-        // 如果 Render 免費版進入休眠，第一次喚醒會比較久 (約30秒-1分鐘)
-        appendMessage('start', 'bg-warning text-dark', '伺服器喚醒中或連線錯誤，請稍等約 30 秒後再試一次！(Render 免費版限制)');
+        appendMessage('start', 'bg-warning text-dark', '伺服器喚醒中或連線錯誤，請稍等約 30 秒後再試一次！');
         console.error(error);
     }
 }
@@ -79,7 +74,6 @@ function appendMessage(align, cssClass, text, id = null) {
     msgDiv.className = `d-flex flex-column align-items-${align} mb-3`;
     if (id) msgDiv.id = id;
     
-    // 簡單處理換行
     const formattedText = text.replace(/\n/g, '<br>');
 
     msgDiv.innerHTML = `
