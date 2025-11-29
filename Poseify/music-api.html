@@ -7,32 +7,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        /* 讓歌詞區塊可以捲動 */
-        #lyrics-content {
-            max-height: 400px;
-            overflow-y: auto;
-            white-space: pre-line; /* 保留歌詞換行 */
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-        /* 自定義捲軸樣式 */
-        #lyrics-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        #lyrics-content::-webkit-scrollbar-thumb {
-            background-color: var(--primary);
-            border-radius: 4px;
-        }
-        /* 封面圖片樣式 */
-        #album-cover {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.3s;
-        }
-        #album-cover:hover {
-            transform: scale(1.05);
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-lg-5 fixed-top">
@@ -44,7 +18,7 @@
         </div>
     </nav>
 
-    <div class="container py-5" style="padding-top: 120px !important;">
+    <div class="container py-5 page-padding-top">
         <div class="text-center mb-5">
             <h1 class="text-white">Music Search & Lyrics</h1>
             <p class="text-white-50">Powered by iTunes API & Lyrics.ovh</p>
