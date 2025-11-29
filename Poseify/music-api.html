@@ -7,6 +7,32 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* 讓歌詞區塊可以捲動 */
+        #lyrics-content {
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-line; /* 保留歌詞換行 */
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        /* 自定義捲軸樣式 */
+        #lyrics-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        #lyrics-content::-webkit-scrollbar-thumb {
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+        /* 封面圖片樣式 */
+        #album-cover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        #album-cover:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-lg-5 fixed-top">
@@ -20,77 +46,124 @@
 
     <div class="container py-5" style="padding-top: 120px !important;">
         <div class="text-center mb-5">
-            <h1 class="text-white">Music Recognition API</h1>
-            <p class="text-white-50">Concept Demo: Identify songs playing around you (Simulated)</p>
+            <h1 class="text-white">Music Search & Lyrics</h1>
+            <p class="text-white-50">Powered by iTunes API & Lyrics.ovh</p>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card bg-secondary border-0">
-                    <div class="card-body p-5 text-center">
-                        <div id="mic-icon" class="mb-4">
-                            <i class="fa-solid fa-microphone-lines display-1 text-primary"></i>
-                        </div>
-                        
-                        <h3 class="text-white mb-3" id="status-text">Tap to Identify Song</h3>
-                        
-                        <div id="song-result" class="bg-dark p-4 rounded mb-4 d-none">
-                            </div>
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8">
+                <div class="input-group input-group-lg">
+                    <input type="text" id="song-input" class="form-control" placeholder="Enter song name (e.g., Yellow Coldplay)..." onkeypress="handleEnter(event)">
+                    <button class="btn btn-primary px-4" onclick="searchSong()">
+                        <i class="fa fa-search me-2"></i> Search
+                    </button>
+                </div>
+            </div>
+        </div>
 
-                        <button id="identify-btn" class="btn btn-primary py-3 px-5" onclick="startIdentification()">
-                            <i class="fa fa-music me-2"></i> Start Listening
-                        </button>
+        <div id="result-area" class="row g-4 d-none">
+            
+            <div class="col-lg-4">
+                <div class="card bg-secondary border-0 h-100 text-center p-4">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <img id="album-cover" src="" class="rounded mb-4" style="width: 250px; height: 250px; object-fit: cover;" alt="Album Art">
+                        
+                        <h3 id="track-name" class="text-white mb-1">Song Title</h3>
+                        <h5 id="artist-name" class="text-primary mb-4">Artist Name</h5>
+                        
+                        <audio id="audio-preview" controls class="w-100 mb-3">
+                            <source src="" type="audio/mpeg">
+                            Your browser does not support audio element.
+                        </audio>
+                        
+                        <p class="text-white-50 small"><i class="fa-brands fa-apple me-1"></i> Data from iTunes</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card bg-dark border-0 h-100 p-4">
+                    <div class="card-header bg-transparent border-bottom border-secondary">
+                        <h4 class="text-white mb-0"><i class="fa-solid fa-align-center me-2"></i>Lyrics</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="lyrics-content" class="text-white-50 text-center">
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="loading-spinner" class="text-center d-none">
+            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+            <p class="mt-3 text-white">Searching for music & lyrics...</p>
+        </div>
+
     </div>
 
     <script>
-        let isListening = false;
+        function handleEnter(e) {
+            if (e.key === 'Enter') searchSong();
+        }
 
-        function startIdentification() {
-            if (isListening) return;
-            isListening = true;
+        async function searchSong() {
+            const query = document.getElementById('song-input').value.trim();
+            if (!query) return;
 
-            const btn = document.getElementById('identify-btn');
-            const status = document.getElementById('status-text');
-            const mic = document.getElementById('mic-icon');
-            const resultDiv = document.getElementById('song-result');
+            // UI 切換：顯示 Loading，隱藏結果
+            document.getElementById('loading-spinner').classList.remove('d-none');
+            document.getElementById('result-area').classList.add('d-none');
+            document.getElementById('lyrics-content').innerText = "Loading lyrics...";
 
-            // 1. 改變介面狀態為「聆聽中」
-            btn.disabled = true;
-            btn.innerHTML = '<div class="spinner-border spinner-border-sm me-2" role="status"></div> Listening...';
-            status.innerText = "Listening to music...";
-            mic.innerHTML = '<i class="fa-solid fa-microphone-lines display-1 text-danger fa-beat"></i>'; // 讓麥克風閃爍
-            resultDiv.classList.add('d-none'); // 隱藏上次結果
+            try {
+                // 1. 呼叫 iTunes API 抓取歌曲資訊
+                const itunesRes = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&media=music&limit=1`);
+                const itunesData = await itunesRes.json();
 
-            // 2. 模擬 3 秒後辨識成功
-            setTimeout(() => {
-                // 恢復介面
-                isListening = false;
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fa fa-music me-2"></i> Identify Again';
-                status.innerText = "Identification Successful!";
-                mic.innerHTML = '<i class="fa-solid fa-check-circle display-1 text-success"></i>';
+                if (itunesData.resultCount === 0) {
+                    alert("Song not found on iTunes!");
+                    document.getElementById('loading-spinner').classList.add('d-none');
+                    return;
+                }
+
+                const song = itunesData.results[0];
+                const artist = song.artistName;
+                const title = song.trackName;
+
+                // 更新左側資訊
+                document.getElementById('album-cover').src = song.artworkUrl100.replace('100x100', '400x400'); // 拿高畫質圖
+                document.getElementById('track-name').innerText = title;
+                document.getElementById('artist-name').innerText = artist;
                 
-                // 顯示結果 (模擬資料)
-                resultDiv.innerHTML = `
-                    <div class="d-flex align-items-center">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/6b/34/11/6b341167-29d3-b66d-7763-136e35116a09/190295851286.jpg/300x300bb.jpg" alt="Album Art" style="width: 80px; height: 80px;" class="rounded me-3">
-                        <div class="text-start flex-grow-1">
-                            <h4 class="text-white mb-1">Shape of You</h4>
-                            <p class="text-white-50 mb-0">Ed Sheeran</p>
-                        </div>
-                    </div>
-                    <audio controls class="w-100 mt-3" style="height: 30px;" autoplay>
-                        <source src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/3d/5c/54/3d5c5443-9731-220a-3503-224017116647/mzaf_13428368577554836217.plus.aac.p.m4a" type="audio/mpeg">
-                        Your browser does not support audio element.
-                    </audio>
-                `;
-                resultDiv.classList.remove('d-none');
+                // 更新播放器
+                const audioPlayer = document.getElementById('audio-preview');
+                audioPlayer.src = song.previewUrl;
+                audioPlayer.load(); // 重置播放器
 
-            }, 3000); // 3秒延遲
+                // 2. 呼叫 Lyrics.ovh API 抓取歌詞
+                // 注意：這是一個免費 API，準確率約 70%，有些新歌可能找不到
+                try {
+                    const lyricsRes = await fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(artist)}/${encodeURIComponent(title)}`);
+                    const lyricsData = await lyricsRes.json();
+
+                    if (lyricsData.lyrics) {
+                        document.getElementById('lyrics-content').innerText = lyricsData.lyrics;
+                    } else {
+                        document.getElementById('lyrics-content').innerHTML = "<i class='fa-regular fa-face-sad-tear display-4 mb-3 d-block'></i>Lyrics not found in the free database.<br>(Enjoy the music preview instead!)";
+                    }
+                } catch (err) {
+                    document.getElementById('lyrics-content').innerHTML = "Lyrics service unavailable.";
+                }
+
+                // 顯示結果
+                document.getElementById('loading-spinner').classList.add('d-none');
+                document.getElementById('result-area').classList.remove('d-none');
+
+            } catch (error) {
+                console.error(error);
+                alert("An error occurred while fetching data.");
+                document.getElementById('loading-spinner').classList.add('d-none');
+            }
         }
     </script>
 </body>
