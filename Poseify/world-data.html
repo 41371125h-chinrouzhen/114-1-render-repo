@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>World Data | Chin Rou Zhen</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-lg-5 fixed-top">
+        <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+            <h2 class="mb-0 text-primary text-uppercase">Rou Zhen</h2>
+        </a>
+        <div class="ms-auto">
+            <a href="index.html" class="btn btn-outline-primary">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="container py-5" style="padding-top: 120px !important;">
+        <div class="text-center mb-5">
+            <h1 class="text-white">Global Real-time Data</h1>
+            <p class="text-white-50">Live Weather & Time (Powered by Open-Meteo & JS)</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card bg-secondary border-0 h-100">
+                    <div class="card-body text-center p-4">
+                        <h3 class="text-primary">Taipei</h3>
+                        <div id="taipei-data" class="mt-4">Loading...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-secondary border-0 h-100">
+                    <div class="card-body text-center p-4">
+                        <h3 class="text-primary">London</h3>
+                        <div id="london-data" class="mt-4">Loading...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-secondary border-0 h-100">
+                    <div class="card-body text-center p-4">
+                        <h3 class="text-primary">New York</h3>
+                        <div id="ny-data" class="mt-4">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card bg-dark border-0 p-4 text-center">
+                    <h4 class="text-white mb-3">Global Population Estimate</h4>
+                    <h1 class="display-3 text-success" id="world-pop">8,050,000,000</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchCityData(city, lat, long, elementId, timezone) {
+            const el = document.getElementById(elementId);
+            try {
+                // Weather
+                const wRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current_weather=true`);
+                const wData = await wRes.json();
+                
+                // Time (JS)
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('en-US', { timeZone: timezone, hour: '2-digit', minute:'2-digit' });
+
+                el.innerHTML = `
+                    <h1 class="text-white display-4">${wData.current_weather.temperature}°C</h1>
+                    <p class="text-white-50 mb-0"><i class="fa-regular fa-clock me-2"></i>${timeStr}</p>
+                `;
+            } catch (e) {
+                el.innerHTML = "Data Unavailable";
+            }
+        }
+
+        let population = 8100000000;
+        setInterval(() => {
+            population += Math.floor(Math.random() * 5);
+            document.getElementById('world-pop').innerText = population.toLocaleString();
+        }, 1000);
+
+        fetchCityData('Taipei', 25.03, 121.56, 'taipei-data', 'Asia/Taipei');
+        fetchCityData('London', 51.50, -0.12, 'london-data', 'Europe/London');
+        fetchCityData('New York', 40.71, -74.00, 'ny-data', 'America/New_York');
+    </script>
+</body>
+</html>

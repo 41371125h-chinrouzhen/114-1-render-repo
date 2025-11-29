@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Chin Rou Zhen | Portfolio</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+    <link href="img/favicon.ico" rel="icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* 下拉選單修正 */
+        .navbar .dropdown-menu {
+            margin-top: 0 !important;
+            top: 100% !important;
+            border-radius: 0 0 5px 5px;
+            background-color: #ffffff;
+            border: 1px solid #eee;
+        }
+        .navbar .nav-item.dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* 讓輸入框在深色背景中好看一點 */
+        .form-control-dark {
+            background-color: #191C24 !important; /* 對應 bg-dark */
+            border: 1px solid #333;
+            color: #fff !important;
+        }
+        .form-control-dark:focus {
+            background-color: #000 !important;
+            border-color: var(--primary);
+            box-shadow: none;
+        }
+        .form-control-dark::placeholder {
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="51">
+
+    <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="container-fluid p-0">
+        <nav id="navbar-example" class="navbar navbar-expand-lg navbar-dark px-lg-5 sticky-top">
+            <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+                <h2 class="mb-0 text-primary text-uppercase"><i class="fa-regular fa-face-smile me-1"></i>Rou Zhen</h2>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav mx-auto p-4 p-lg-0">
+                    <a href="#home" class="nav-item nav-link active">Home</a>
+                    <a href="#about" class="nav-item nav-link">About</a>
+                    <a href="#skills" class="nav-item nav-link">Skills</a>
+                    <a href="#works" class="nav-item nav-link">Works</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0 shadow-sm">
+                            <a href="ai-chat.html" class="dropdown-item">Gemini AI Chat</a>
+                            <a href="music-api.html" class="dropdown-item">Music API</a>
+                            <a href="world-data.html" class="dropdown-item">World Data</a>
+                        </div>
+                    </div>
+                    <a href="#contact" class="nav-item nav-link">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <div id="home" class="container-fluid p-0 mb-5">
+            <div class="position-relative">
+                <img class="w-100" src="img/carousel-1.jpg" alt="Image" style="height: 100vh; object-fit: cover;">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, 0.4);">
+                    <div class="container">
+                        <div class="row justify-content-center justify-content-lg-start">
+                            <div class="col-10 col-lg-8 text-center text-lg-start">
+                                <div class="title mx-auto mx-lg-0 mb-4 animated slideInDown">
+                                    <div class="title-left text-white">
+                                        <h5 class="text-white">Hello, I'm</h5>
+                                        <h1 class="display-1 text-white">Chin Rou Zhen</h1>
+                                    </div>
+                                </div>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2 animated slideInDown">NTNU Student | 3D Artist | Event Planner<br>來自馬來西亞，熱愛數據分析與數位動畫的創意實踐者。</p>
+                                <a href="#about" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">About Me</a>
+                                <a href="#works" class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">My Works</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+    <div class="container-fluid bg-secondary" id="about">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-7 pb-0 pb-lg-5 py-5">
+                    <div class="pb-0 pb-lg-5 py-5">
+                        <div class="title wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="title-left">
+                                <h5>About Me</h5>
+                                <h1>數據思維與創意設計的結合</h1>
+                            </div>
+                        </div>
+                        <p class="mb-4 wow fadeInUp" data-wow-delay="0.2s">目前就讀於國立臺灣師範大學二年級。我的學習旅程跨足了<strong>數據分析</strong>的邏輯思維與<strong>數位動畫</strong>的創意表達。我深信，技術與創意是相輔相成的。我渴望能將數據洞察力與 3D 建模、動畫製作的技能結合。</p>
+                        <ul class="list-group list-group-flush mb-5 wow fadeInUp" data-wow-delay="0.3s">
+                            <li class="list-group-item bg-dark text-body border-secondary ps-0">
+                                <i class="fa fa-check-circle text-primary me-1"></i> 來自馬來西亞 (Malaysia)
+                            </li>
+                            <li class="list-group-item bg-dark text-body border-secondary ps-0">
+                                <i class="fa fa-check-circle text-primary me-1"></i> 就讀於師大科技應用與人力資源發展學系
+                            </li>
+                            <li class="list-group-item bg-dark text-body border-secondary ps-0">
+                                <i class="fa fa-check-circle text-primary me-1"></i> 擅長：3D Modeling, Data Analysis, Event Planning
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.5s">
+                    <img class="img-fluid" src="img/profilepic.png" alt="Profile Photo">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-5" id="skills">
+        <div class="container py-5">
+            <div class="text-center">
+                <div class="title wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="title-center">
+                        <h5>Expertise</h5>
+                        <h1>My Skills</h1>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-item service-item-left">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-5">
+                        <div class="service-img p-5 wow fadeInRight" data-wow-delay="0.2s">
+                            <img class="img-fluid rounded-circle" src="img/service-1.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="service-text px-5 px-md-0 py-md-5 wow fadeInRight" data-wow-delay="0.5s">
+                            <h3 class="text-uppercase">3D Modeling & Animation</h3>
+                            <p class="mb-4">熟練使用 Maya 與 Rhino 進行建模與動畫製作。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-item service-item-right">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-5 order-md-1 text-md-end">
+                        <div class="service-img p-5 wow fadeInLeft" data-wow-delay="0.2s">
+                            <img class="img-fluid rounded-circle" src="img/service-2.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="service-text px-5 px-md-0 py-md-5 text-md-end wow fadeInLeft" data-wow-delay="0.5s">
+                            <h3 class="text-uppercase">Event Planning</h3>
+                            <p class="mb-4">曾擔任台師大科技營活動主持人及策劃。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-item service-item-left">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-5">
+                        <div class="service-img p-5 wow fadeInRight" data-wow-delay="0.2s">
+                            <img class="img-fluid rounded-circle" src="img/service-3.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="service-text px-5 px-md-0 py-md-5 wow fadeInRight" data-wow-delay="0.5s">
+                            <h3 class="text-uppercase">Data Analysis</h3>
+                            <p class="mb-4">負責分析與管理圖書館資料庫。擁有邏輯思維。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-item service-item-right">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-5 order-md-1 text-md-end">
+                        <div class="service-img p-5 wow fadeInLeft" data-wow-delay="0.2s">
+                            <img class="img-fluid rounded-circle" src="img/service-4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="service-text px-5 px-md-0 py-md-5 text-md-end wow fadeInLeft" data-wow-delay="0.5s">
+                            <h3 class="text-uppercase">Interactive Design</h3>
+                            <p class="mb-4">具備基礎程式能力 (Python, JS)，開發過 Web App "Unifocus"。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-5 bg-secondary" id="works">
+        <div class="container py-5">
+            <div class="text-center">
+                <div class="title wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="title-center">
+                        <h5>Portfolio</h5>
+                        <h1>Interactive Works</h1>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item text-center bg-dark p-5 h-100 rounded shadow-sm">
+                        <div class="mb-4">
+                             <i class="fa-solid fa-robot text-primary" style="font-size: 4rem;"></i>
+                        </div>
+                        <h3 class="text-uppercase mb-3 text-white">Gemini AI Chat</h3>
+                        <p class="mb-4 text-white-50">Integrates Google Gemini API to create a virtual assistant that speaks like me.</p>
+                        <a class="btn btn-outline-primary border-2 px-4" href="ai-chat.html">Try It Now <i class="fa fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center bg-dark p-5 h-100 rounded shadow-sm">
+                        <div class="mb-4">
+                            <i class="fa-solid fa-music text-primary" style="font-size: 4rem;"></i>
+                        </div>
+                        <h3 class="text-uppercase mb-3 text-white">Music API</h3>
+                        <p class="mb-4 text-white-50">A demonstration of music recognition and lyrics retrieval using web APIs.</p>
+                        <a class="btn btn-outline-primary border-2 px-4" href="music-api.html">Explore Music <i class="fa fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-item text-center bg-dark p-5 h-100 rounded shadow-sm">
+                        <div class="mb-4">
+                            <i class="fa-solid fa-earth-americas text-primary" style="font-size: 4rem;"></i>
+                        </div>
+                        <h3 class="text-uppercase mb-3 text-white">World Data</h3>
+                        <p class="mb-4 text-white-50">Real-time dashboard displaying global time zones, weather, and population data.</p>
+                        <a class="btn btn-outline-primary border-2 px-4" href="world-data.html">View Data <i class="fa fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-5 bg-secondary" id="contact">
+        <div class="container py-5">
+            <div class="text-center">
+                <div class="title wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="title-center">
+                        <h5>Get In Touch</h5>
+                        <h1>Contact Me</h1>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+                    <p class="text-center mb-5 text-white-50">
+                        Open for internships, freelance projects, and academic collaborations.<br>
+                        Feel free to drop a message!
+                    </p>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control form-control-dark" id="name" placeholder="Your Name">
+                                    <label for="name">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control form-control-dark" id="email" placeholder="Your Email">
+                                    <label for="email">Your Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control form-control-dark" id="subject" placeholder="Subject">
+                                    <label for="subject">Subject</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control form-control-dark" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-primary py-3 px-5" type="submit">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-light footer py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <a href="index.html">
+                <h1 class="display-4 mb-3 text-white text-uppercase"><i class="fa-regular fa-face-smile me-1"></i>Rou Zhen</h1>
+            </a>
+            <div class="d-flex justify-content-center mb-4">
+                <a class="btn btn-lg-square btn-outline-primary border-2 m-1" href="https://www.facebook.com/chin.rzhen"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-lg-square btn-outline-primary border-2 m-1" href="https://www.linkedin.com/in/chin-rzhen-9095a9366/"><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-lg-square btn-outline-primary border-2 m-1" href="https://www.instagram.com/rouzhenn_/"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="mb-0">&copy; <a class="border-bottom" href="#">Chin Rou Zhen</a>, All Right Reserved.</p>
+        </div>
+    </div>
+    <a href="#" class="btn btn-outline-primary border-2 btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
